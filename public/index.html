@@ -6,70 +6,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recipe List</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-    }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    input[type="text"] {
-      width: 100%;
-      max-width: 600px;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
+#contentContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+}
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      max-width: 600px;
-    }
+#recipeList {
+  flex: 1;
+  max-width: 300px; /* Adjust the width of the recipe list */
+}
 
-    li {
-      margin: 0.5rem 0;
-    }
+#rightContent {
+  flex: 1;
+  max-width: 300px; /* Adjust the width of the right content */
+}
 
-    a {
-      text-decoration: none;
-      color: #007BFF;
-    }
+#searchHint {
+  max-width: 600px;
+  padding-bottom: 25px;
+}
 
-    a:hover {
-      text-decoration: underline;
-    }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
 
-    @media (max-width: 600px) {
-      input[type="text"] {
-        font-size: 0.9rem;
-      }
+li {
+  margin: 0.5rem 0;
+}
 
-      a {
-        font-size: 0.9rem;
-      }
-    }
+a {
+  text-decoration: none;
+  color: #007BFF;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type="text"], input[type="number"] {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  #contentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #recipeList, #rightContent {
+    max-width: 100%;
+  }
+
+  input[type="text"], input[type="number"] {
+    font-size: 0.9rem;
+  }
+
+  a {
+    font-size: 0.9rem;
+  }
+}
   </style>
 </head>
 
 <body>
-  <h1>Recipe List</h1>
+  <h1>Recipe Search</h1>
   <input type="text" id="searchBox" placeholder="Search recipes..." oninput="filterRecipes()">
-  <!-- Set up a container element for the button -->
-  <div>This has been provided as a free service. If you'd like to show your appreciation <br />you can send the amount
-    of your choice by one of the following payment methods.</div>
-  <p>Select an amount in USD to contribute:</p>
-  <input type="number" id="amount" placeholder="Enter amount" min="1" step="1" />
+  <div id="searchHint">The links below will take you to the wayback machine, which is an archive of content that was captured from websites in the past.  If a recipe was added shortly before a website was shut down, it may not be available here.</div>
+  
+  <!-- Add a new container for the two sections -->
+  <div id="contentContainer">
+    <!-- Left: Recipe List -->
+    <ul id="recipeList"></ul>
 
-  <div id="paypal-button-container"></div>
-  <ul id="recipeList"></ul>
+    <!-- Right: Additional Content -->
+    <div id="rightContent">
+      <div>This has been provided as a free service. If you'd like to show your appreciation <br />you can send the amount
+        of your choice by one of the following payment methods.</div>
+      <p>Select an amount in USD to contribute:</p>
+      <input type="number" id="amount" placeholder="Enter amount" min="1" step="1" />
+      <div id="paypal-button-container"></div>
+    </div>
+  </div>
   <script
     src="https://www.paypal.com/sdk/js?client-id=AVCiRTYSUMmstSnmc0zREgfBJG0Dl1GgVzX0m-JhBcZnP50IYAKexRJq_7d4ROfyHdV71v18rtcq9xFU&enable-funding=venmo&disable-funding=paylater"></script>
 
