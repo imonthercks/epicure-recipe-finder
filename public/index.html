@@ -122,15 +122,20 @@
   <script>
     // PayPal Button Integration
     paypal.Buttons({
+      onClick: function () {
+        var amount = document.getElementById('amount').value;
+
+        // Check if the amount is empty, not a number, or less than or equal to 0
+        if (!amount || isNaN(amount) || Number(amount) <= 0) {
+          alert('Please enter a valid amount before proceeding.');
+          return false; // Prevent PayPal from processing
+        }
+
+        return true; // Allow PayPal to process
+      },
       createOrder: function (data, actions) {
         var amount = document.getElementById('amount').value;
 
-        // Validate if the amount is entered and is a valid number
-        if (!amount || isNaN(amount) || Number(amount) <= 0) {
-          alert('Please enter a valid amount before proceeding.');
-          return; // Do not proceed if the validation fails
-        }
-        
         return actions.order.create({
           purchase_units: [{
             amount: {
