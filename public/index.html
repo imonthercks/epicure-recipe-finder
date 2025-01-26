@@ -164,7 +164,10 @@
             amount: {
               value: amount
             }
-          }]
+          }],
+          application_context: {
+            shipping_preference: 'NO_SHIPPING' // Disables address collection
+          }
         });
       },
       onApprove: function (data, actions) {
