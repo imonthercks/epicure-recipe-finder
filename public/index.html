@@ -87,6 +87,11 @@
         font-size: 0.9rem;
       }
 
+      input.error {
+        border: 2px solid red;
+        outline: none;
+      }
+
       a {
         font-size: 0.9rem;
       }
@@ -113,6 +118,7 @@
         of your choice by one of the following payment methods.</div>
       <p>Select an amount in USD to contribute:</p>
       <input type="number" id="amount" placeholder="Enter amount" min="1" step="1" />
+      <div id="error-message" style="color: red; font-size: 0.9rem; margin-bottom: 0.5rem; text-align: center;"></div>
       <div id="paypal-button-container"></div>
     </div>
   </div>
@@ -123,11 +129,28 @@
     // PayPal Button Integration
     paypal.Buttons({
       onClick: function () {
-        var amount = document.getElementById('amount').value;
+        var amountInput = document.getElementById('amount');
+        var errorDiv = document.getElementById('error-message');
 
-        // Check if the amount is empty, not a number, or less than or equal to 0
+        // Clear previous error state
+        amountInput.classList.remove('error');
+        errorDiv.textContent = '';
+
+        // Get the value of the input field
+        var amount = amountInput.value;
+
+        // Strip out non-numeric characters except for the decimal
+        amount = amount.replace(/[^0-9.]/g, '');
+
+        // Update the input field with the cleaned amount
+        amountInput.value = amount;
+
+        // Validate the cleaned amount
         if (!amount || isNaN(amount) || Number(amount) <= 0) {
-          alert('Please enter a valid amount before proceeding.');
+          // Highlight the input field
+          amountInput.classList.add('error');
+          // Show error message
+          errorDiv.textContent = 'Please enter a valid amount before proceeding.';
           return false; // Prevent PayPal from processing
         }
 
